@@ -113,8 +113,8 @@ const ProfileBio: React.FC<{ experience: string; coverletter: string; books: str
                 <b>Books that influenced me:</b>
             </p>
             <ul style={{ columns: 2 }}>
-                {books.map((b: string) => {
-                    return <li style={{ width: '97%' }}>{b}</li>;
+                {books.map((b: string, index: number) => {
+                    return <li key={index} style={{ width: '97%' }}>{b}</li>;
                 })}
             </ul>
         </div>
