@@ -1,54 +1,29 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Task } from './agile-types';
 import Table from 'react-bootstrap/Table';
-import { Badge, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Alert, Badge, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { DragDropContext, Droppable, DropResult, Draggable } from 'react-beautiful-dnd';
 
-const allTasks: Task[] = [
-    {
-        id: '1',
-        taskName: 'Data Scientist',
-        description: 'IBM Certified Data Scientist',
-        taskOwner: 'HS',
-        dueDate: 'Dec-2021',
-        stage: 'Wishlist',
-    },
-    {
-        id: '2',
-        taskName: 'AWS',
-        description: 'Create website',
-        taskOwner: 'HS',
-        dueDate: 'Aug-2020',
-        stage: 'In Progress',
-    },
-    {
-        id: '3',
-        taskName: 'Professional Exam',
-        description: 'AWS Certified Architect',
-        taskOwner: 'HS',
-        dueDate: 'Mar-2021',
-        stage: 'Backlog',
-    },
-    {
-        id: '4',
-        taskName: 'Associate Exam',
-        description: 'AWS Certified Architect',
-        taskOwner: 'HS',
-        dueDate: 'Jun-2020',
-        stage: 'Completed',
-    },
-    {
-        id: '5',
-        taskName: 'Containers',
-        description: 'Docker, Kubernetes',
-        taskOwner: 'HS',
-        dueDate: 'Dec-2020',
-        stage: 'Backlog',
-    },
-];
-
 const AgileBoard: React.FC = () => {
-    const [tasks, setTasks] = useState<Task[]>(allTasks);
+    const api = '/agile/tasks';
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const [errors, setErrors] = useState<boolean>();
+
+    async function fetchData() {
+        try {
+        const url = process.env.REACT_APP_API_HOST! + api;
+        const res = await fetch(url);
+        res
+          .json()
+          .then(res => setTasks(res.tasks));
+        } catch (err) {
+            setErrors(true);
+        }
+    };
+
+    useEffect(() => { 
+        fetchData() 
+    }, []);
 
     const onDragEnd = (result: DropResult) => {
         if (isMoveToAnotherColumn(result)) {
@@ -72,7 +47,13 @@ const AgileBoard: React.FC = () => {
     };
 
     return (
-        <div style={{ width: '90%' }}>
+        <>
+        <div style={{ width: '90%', display: (errors ? '': 'none'), margin: '2%' }}>
+            <Alert variant={'danger'}>
+                <b>Error</b>: Tasks are not available at this time
+            </Alert>
+        </div>
+        <div style={{ width: '90%', display: (errors ? 'none': '') }}>
             <DragDropContext onDragEnd={onDragEnd}>
                 <Table striped bordered hover responsive>
                     <thead>
@@ -134,6 +115,7 @@ const AgileBoard: React.FC = () => {
                 </Table>
             </DragDropContext>
         </div>
+    </>                            
     );
 };
 

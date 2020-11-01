@@ -51,7 +51,7 @@ const ProfileHero: React.FC<ProfileEntity> = (profile: ProfileEntity) => {
                             className="LI-simple-link"
                             href="https://au.linkedin.com/in/singhharmanjit?trk=profile-badge"
                         >
-                            Harmanjit Singh
+                            {profile.firstName} {profile.lastName}
                         </a>
                     </div>
                 </Col>
