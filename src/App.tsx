@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header } from './components/header/Header';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Profile from './components/profile/Profile';
 import AgileBoard from './components/agile/AgileBoard';
 import Architectures from './components/architectures/Architectures';
@@ -41,7 +41,7 @@ function App() {
                                 <Architectures />
                             </Route>
                             <Route exact path="/"
-                                render={() => <Redirect to="/profile" /> }/>
+                                render={() => <Redirect to="profile" /> }/>
                         </Switch>
                     </div>
                 </Router>
