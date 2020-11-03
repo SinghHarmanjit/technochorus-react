@@ -5,17 +5,18 @@ import { Alert, Badge, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { DragDropContext, Droppable, DropResult, Draggable } from 'react-beautiful-dnd';
 
 const AgileBoard: React.FC = () => {
-    const api = '/agile/tasks';
+    const api = '/api/agile/tasks';
     const [tasks, setTasks] = useState<Task[]>([]);
     const [errors, setErrors] = useState<boolean>();
 
     async function fetchData() {
         try {
-        const url = process.env.REACT_APP_API_HOST! + api;
-        const res = await fetch(url);
-        res
-          .json()
-          .then(res => setTasks(res.tasks));
+            const url = process.env.REACT_APP_API_HOST! + api;
+            const headers = {'x-api-key': process.env.REACT_APP_API_KEY!}
+            const res = await fetch(url, { headers: headers });
+            res
+            .json()
+            .then(res => setTasks(res.tasks));
         } catch (err) {
             setErrors(true);
         }

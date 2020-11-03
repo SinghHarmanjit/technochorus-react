@@ -9,7 +9,7 @@ const profile: ProfileEntity = {
     firstName: 'Harmanjit',
     lastName: 'Singh',
     attributes: ['Architect', 'Team Lead', 'Developer'],
-    skills: ['AWS Cloud', 'FullStack', 'Microservices', 'Performance'],
+    skills: ['AWS Cloud', 'FullStack', 'Microservices'],
     experience: '15+ years experience',
     coverletter:
         'I have been constantly challenged to develop architectures and design for large enterprises. I took each challenge as an opportunity to apply latest industry trends and deliver quality solutions. Being certified AWS Architect, IBM OOAD Designer and Scrum master, I adopted best practices from both bodies of knowledge to deliver solutions including microservices, serverless, functional automation testing and building CICD pipelines.',
@@ -136,12 +136,12 @@ const ProfileCertifications: React.FC = () => (
         }}
     >
         <label>Certifications</label>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Row className="justify-content-center">
             <Image style={{ height: '12rem', width: '12rem' }} src={'aws.png'} roundedCircle />
             <Image style={{ height: '12rem', width: '12rem' }} src={'blockchain.png'} roundedCircle />
             <Image style={{ height: '12rem', width: '12rem' }} src={'csm.png'} roundedCircle />
             <Image style={{ height: '12rem', width: '12rem' }} src={'spring.png'} />
-        </div>
+        </Row>
     </div>
 );
 
